@@ -1,0 +1,463 @@
+<title>SentinelAI — InnovaHack Deck Reference</title>
+<style>
+  :root{
+    --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAF0F7;
+    --ink:#10192B; --muted:#55677E; --border:#D7E0EC;
+    --accent:#0E7C86; --accent-ink:#FFFFFF;
+    --safe:#1E8E5A; --warning:#B8790A; --danger:#C4372A;
+    --safe-bg:#E4F5EC; --warning-bg:#FBF0DA; --danger-bg:#FBE7E4;
+    --term-bg:#0D1420; --term-ink:#CBD8EC;
+    --mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --sans: "Inter", -apple-system, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0A0F1A; --surface:#121A2B; --surface-2:#16233A;
+      --ink:#E6ECF7; --muted:#8DA0BE; --border:#24334E;
+      --accent:#45D9C9; --accent-ink:#08201D;
+      --safe:#3ED598; --warning:#F5B942; --danger:#FB6C63;
+      --safe-bg:#123324; --warning-bg:#332707; --danger-bg:#3A1815;
+      --term-bg:#05080F; --term-ink:#B9C8E2;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A0F1A; --surface:#121A2B; --surface-2:#16233A;
+    --ink:#E6ECF7; --muted:#8DA0BE; --border:#24334E;
+    --accent:#45D9C9; --accent-ink:#08201D;
+    --safe:#3ED598; --warning:#F5B942; --danger:#FB6C63;
+    --safe-bg:#123324; --warning-bg:#332707; --danger-bg:#3A1815;
+    --term-bg:#05080F; --term-ink:#B9C8E2;
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F5F8; --surface:#FFFFFF; --surface-2:#EAF0F7;
+    --ink:#10192B; --muted:#55677E; --border:#D7E0EC;
+    --accent:#0E7C86; --accent-ink:#FFFFFF;
+    --safe:#1E8E5A; --warning:#B8790A; --danger:#C4372A;
+    --safe-bg:#E4F5EC; --warning-bg:#FBF0DA; --danger-bg:#FBE7E4;
+    --term-bg:#0D1420; --term-ink:#CBD8EC;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent); color:var(--accent-ink); }
+  a{ color:var(--accent); }
+
+  .shell{ display:flex; max-width:1440px; margin:0 auto; }
+
+  nav.rail{
+    position:sticky; top:0; align-self:flex-start; height:100vh;
+    width:246px; flex:none; padding:28px 14px 28px 24px; overflow-y:auto;
+    border-right:1px solid var(--border);
+  }
+  .brand{ font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:2px; }
+  .brand-sub{ font-size:11px; color:var(--muted); margin-bottom:22px; }
+  .rail ol{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+  .rail a{ display:flex; gap:10px; align-items:baseline; text-decoration:none; color:var(--muted); font-size:12.5px; padding:7px 10px; border-radius:6px; line-height:1.3; }
+  .rail a:hover{ background:var(--surface-2); color:var(--ink); }
+  .rail a .n{ font-family:var(--mono); font-size:11px; color:var(--accent); flex:none; width:18px; }
+  .rail .wt{ margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--muted); flex:none; }
+
+  main.deck{ flex:1; min-width:0; padding:40px 40px 120px; display:flex; flex-direction:column; gap:28px; }
+
+  .slide{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:44px 52px; min-height:78vh; display:flex; flex-direction:column;
+    scroll-margin-top:20px;
+  }
+  .slide .eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+  .slide .eyebrow .idx{ color:var(--accent); font-weight:700; }
+  .slide .eyebrow .marks{ margin-left:auto; background:var(--surface-2); border:1px solid var(--border); padding:3px 10px; border-radius:999px; color:var(--ink); font-weight:600; }
+  .slide h1{ font-size:clamp(26px,3vw,38px); line-height:1.15; margin:0 0 6px; text-wrap:balance; letter-spacing:-0.01em; }
+  .slide .tagline{ color:var(--muted); font-size:16px; margin:0 0 26px; max-width:70ch; }
+  .slide .body{ flex:1; display:flex; flex-direction:column; gap:22px; }
+
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+
+  ul.bullets{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:11px; }
+  ul.bullets li{ padding-left:20px; position:relative; line-height:1.55; }
+  ul.bullets li::before{ content:""; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:2px; background:var(--accent); }
+  ul.bullets b, ul.bullets strong{ color:var(--ink); }
+
+  .card{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; }
+  .card h3{ margin:0 0 8px; font-size:14.5px; display:flex; align-items:center; gap:8px; }
+  .card p{ margin:0; color:var(--muted); font-size:13.5px; line-height:1.55; }
+  .card code{ font-family:var(--mono); font-size:12px; background:var(--bg); padding:1px 5px; border-radius:4px; }
+
+  .pill{ display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; padding:3px 10px; border-radius:999px; font-weight:600; letter-spacing:.02em; }
+  .pill.safe{ background:var(--safe-bg); color:var(--safe); }
+  .pill.warn{ background:var(--warning-bg); color:var(--warning); }
+  .pill.danger{ background:var(--danger-bg); color:var(--danger); }
+  .pill.neutral{ background:var(--surface-2); color:var(--muted); border:1px solid var(--border); }
+
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  th,td{ text-align:left; padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  th{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:600; }
+  .twrap{ overflow-x:auto; }
+
+  .mermaid-wrap{ background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:16px; overflow-x:auto; }
+  .mermaid-wrap .cap{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:8px; }
+  pre.mermaid{ margin:0; background:transparent; }
+
+  .term{ background:var(--term-bg); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .term .bar{ display:flex; gap:6px; padding:9px 12px; border-bottom:1px solid rgba(255,255,255,.08); }
+  .term .dot{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.18); }
+  .term pre{ margin:0; padding:16px 18px; font-family:var(--mono); font-size:12.5px; line-height:1.75; color:var(--term-ink); white-space:pre-wrap; word-break:break-word; }
+  .term .stage{ color:var(--accent); font-weight:700; }
+  .term .ok{ color:var(--safe); }
+
+  .report-card{ border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--surface-2); }
+  .report-card .rc-head{ display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--border); }
+  .report-card .rc-head b{ font-size:14.5px; }
+  .report-card .rc-body{ padding:14px 16px; display:flex; flex-direction:column; gap:8px; font-size:13px; }
+  .report-card .rc-body .k{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .report-card .rc-body p{ margin:2px 0 0; color:var(--ink); line-height:1.5; }
+
+  footer.slidefoot{ margin-top:auto; padding-top:20px; display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:11px; color:var(--muted); border-top:1px solid var(--border); }
+  .kicker-row{ display:flex; gap:10px; flex-wrap:wrap; }
+
+  .stat-row{ display:flex; gap:16px; flex-wrap:wrap; }
+  .stat{ flex:1; min-width:140px; background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:16px 18px; }
+  .stat b{ display:block; font-family:var(--mono); font-size:26px; font-variant-numeric:tabular-nums; }
+  .stat span{ font-size:12px; color:var(--muted); }
+
+  @media (max-width:900px){
+    nav.rail{ display:none; }
+    main.deck{ padding:24px 18px 90px; }
+    .grid2, .grid3{ grid-template-columns:1fr; }
+    .slide{ padding:28px 22px; }
+  }
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="brand">SentinelAI</div>
+    <div class="brand-sub">InnovaHack Ch.1 · Deck reference</div>
+    <ol>
+      <li><a href="#s1"><span class="n">01</span>Title</a></li>
+      <li><a href="#s2"><span class="n">02</span>Problem &amp; solution<span class="wt">20</span></a></li>
+      <li><a href="#s3"><span class="n">03</span>Innovation<span class="wt">15</span></a></li>
+      <li><a href="#s4"><span class="n">04</span>Architecture<span class="wt">25</span></a></li>
+      <li><a href="#s5"><span class="n">05</span>Reason + Verify<span class="wt">25</span></a></li>
+      <li><a href="#s6"><span class="n">06</span>Engineering quality<span class="wt">25</span></a></li>
+      <li><a href="#s7"><span class="n">07</span>Working demo<span class="wt">15</span></a></li>
+      <li><a href="#s8"><span class="n">08</span>Demo walkthrough<span class="wt">10</span></a></li>
+      <li><a href="#s9"><span class="n">09</span>Scalability &amp; impact<span class="wt">10</span></a></li>
+      <li><a href="#s10"><span class="n">10</span>Docs &amp; submission<span class="wt">5</span></a></li>
+      <li><a href="#s11"><span class="n">11</span>Close</a></li>
+    </ol>
+  </nav>
+
+  <main class="deck">
+
+    <!-- SLIDE 1 -->
+    <section class="slide" id="s1">
+      <div class="eyebrow"><span class="idx">01 / 11</span>Title slide</div>
+      <div class="body" style="justify-content:center; gap:18px;">
+        <div style="font-family:var(--mono); color:var(--accent); font-size:14px; letter-spacing:.1em; text-transform:uppercase;">InnovaHack Chapter-1 · National Level Hackathon · Cybersecurity Domain</div>
+        <h1 style="font-size:clamp(36px,5vw,58px);">SentinelAI</h1>
+        <p class="tagline" style="font-size:20px;">An autonomous AI security analyst that chains scanner findings into verified attack stories — a short confirmed list instead of a 200-item vulnerability dump.</p>
+        <div class="kicker-row">
+          <span class="pill neutral">Connect</span><span class="pill neutral">→ Sense</span><span class="pill neutral">→ Reason</span><span class="pill neutral">→ Verify</span><span class="pill neutral">→ Report</span>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>1</span></footer>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide" id="s2">
+      <div class="eyebrow"><span class="idx">02 / 11</span>Problem Understanding &amp; Solution<span class="marks">20 marks</span></div>
+      <h1>Scanners find issues. Nobody reads 200 of them.</h1>
+      <p class="tagline">Semgrep, Gitleaks, and OSV-Scanner are individually reliable — but raw output is noisy, disconnected, and blind to the bugs that live in business logic, not syntax.</p>
+      <div class="body">
+        <div class="grid3">
+          <div class="card"><h3>Scanner noise</h3><p>Real repos return dozens to hundreds of findings across three tools with no shared context — teams triage by severity label, not by what's actually exploitable.</p></div>
+          <div class="card"><h3>Invisible business-logic bugs</h3><p>A missing lock between a "check" and a "commit" — e.g. a coupon that should redeem once — has no signature any SAST rule matches. It's correct-looking code with a timing hole.</p></div>
+          <div class="card"><h3>False-positive fatigue</h3><p>When every flagged line looks equally urgent, the handful of genuinely chainable, exploitable issues get buried under ones that were never real.</p></div>
+        </div>
+        <div class="card">
+          <h3>Our solution</h3>
+          <p style="font-size:14.5px;">SentinelAI keeps the proven scanners for raw signal, then adds a reasoning layer that reads business intent, composes individually-boring findings into realistic multi-step attack chains, and <b style="color:var(--ink)">verifies</b> which chains actually work before reporting anything — so the deliverable is a short list of confirmed attack stories, each with a plain-English narrative and a suggested fix.</p>
+        </div>
+        <div class="grid2">
+          <div class="card"><h3>Aligned to domain</h3><p>Cybersecurity — AppSec / DevSecOps tooling that plugs into how security teams already scan repos, rather than replacing their tools.</p></div>
+          <div class="card"><h3>Real user need, practical &amp; feasible</h3><p>Built for security engineers and small teams without a dedicated red team. Runs on any local folder or public GitHub repo; zero required config beyond one free Groq API key.</p></div>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>2</span></footer>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide" id="s3">
+      <div class="eyebrow"><span class="idx">03 / 11</span>Innovation &amp; Creativity<span class="marks">15 marks</span></div>
+      <h1>Verification is the differentiator</h1>
+      <p class="tagline">Most "AI security scanner" ideas stop at "an LLM read the code and says it's vulnerable." SentinelAI treats that as a hypothesis, not a verdict — and tries to prove or kill it.</p>
+      <div class="body">
+        <div class="grid2">
+          <div class="card">
+            <h3>🧪 Dynamic exploitation, not just narration</h3>
+            <p>For race-condition chains, SentinelAI clones the target into a disposable sandbox, boots it on a free port, gets one real session token, then fires 200 concurrent requests reusing that session with a non-pooled HTTP client — so requests genuinely land concurrently instead of serializing through Node's keep-alive pool. More than one success proves the exploit.</p>
+          </div>
+          <div class="card">
+            <h3>🕵️ A skeptical fallback verifier</h3>
+            <p>When dynamic execution isn't possible, a second, adversarial LLM pass re-reads the exact code and only confirms the chain if it can <b style="color:var(--ink)">cite a specific missing lock or transaction</b> — otherwise it kills the candidate as a false positive, instead of rubber-stamping the Planner's guess.</p>
+          </div>
+          <div class="card">
+            <h3>🔗 Cross-file mitigation awareness</h3>
+            <p>The static re-verifier resolves a flagged file's own local imports (e.g. a route handler's data model) so a mitigation living in a <i>different</i> file — like a Mongoose <code>unique: true</code> constraint — isn't invisible to it. Verified in testing: this correctly demoted a "duplicate registration" chain once the model's constraint was visible.</p>
+          </div>
+          <div class="card">
+            <h3>🧠 Business intent as a first-class stage</h3>
+            <p>A dedicated Business-Logic Agent reads the <i>intended rule</i> behind an endpoint ("a coupon should apply once per order") before the Planner is ever allowed to reason about how that rule could be broken — chains are grounded in intent, not pattern-matched.</p>
+          </div>
+        </div>
+        <div class="card"><h3>Differentiation</h3><p style="font-size:14.5px;">Not a linter wrapper. Not a chatbot pasted over scan output. An agent pipeline where each stage's explicit job is to eliminate the false positives the previous stage couldn't.</p></div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>3</span></footer>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" id="s4">
+      <div class="eyebrow"><span class="idx">04 / 11</span>Technical Implementation<span class="marks">25 marks</span></div>
+      <h1>A five-stage agent pipeline</h1>
+      <p class="tagline">Connect → Sense → Reason → Verify → Report — each stage is a separate, testable module; failures in Reason or Verify degrade gracefully rather than crashing the run.</p>
+      <div class="body">
+        <div class="mermaid-wrap">
+          <div class="cap">Pipeline overview</div>
+          <pre class="mermaid">
+flowchart LR
+  A["Connect\nclone repo or scan a local folder"] --> B["Sense\nSemgrep + Gitleaks + OSV-Scanner"]
+  B --> C["Reason\nBusiness-Logic Agent + Planner Agent"]
+  C --> D["Verify\nDynamic sandbox race check, or static re-analysis"]
+  D --> E["Report\nMarkdown + HTML, optional GitHub Issue / fix PR"]
+          </pre>
+        </div>
+        <div class="twrap">
+        <table>
+          <thead><tr><th>Stage</th><th>What runs</th><th>Code</th></tr></thead>
+          <tbody>
+            <tr><td>Connect</td><td>GitHub App or PAT auth, shallow clone — or skip auth entirely for a local folder</td><td><code>src/connect</code></td></tr>
+            <tr><td>Sense</td><td>Semgrep (security-audit + owasp-top-ten + ci rulesets), Gitleaks, OSV-Scanner — raw signal, not the answer</td><td><code>src/sense</code></td></tr>
+            <tr><td>Reason</td><td>Business-Logic Agent (reads intent) + Planner Agent (composes attack chains)</td><td><code>src/reason</code></td></tr>
+            <tr><td>Verify</td><td>Dynamic race-condition check in a disposable sandbox, or skeptical static LLM re-analysis</td><td><code>src/verify</code></td></tr>
+            <tr><td>Report</td><td>Self-contained HTML report + Markdown, optional GitHub Issue / auto-drafted fix PR</td><td><code>src/report</code></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>4</span></footer>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" id="s5">
+      <div class="eyebrow"><span class="idx">05 / 11</span>Technical Implementation<span class="marks">25 marks</span></div>
+      <h1>Reasoning that composes, verification that proves</h1>
+      <p class="tagline">Two LLM-backed stages, each with a narrow job — the Planner only composes what the Business-Logic Agent already grounded in intent; the Verifier only confirms what it can independently prove.</p>
+      <div class="body">
+        <div class="mermaid-wrap">
+          <div class="cap">Reason stage</div>
+          <pre class="mermaid">
+flowchart TD
+  F["Raw findings\nsemgrep / gitleaks / osv-scanner"] --> BL["Business-Logic Agent\nreads endpoint intent"]
+  BL --> N["Business-Logic Notes\nintended rule + concern"]
+  F --> PL["Planner Agent"]
+  N --> PL
+  PL --> AC["Candidate Attack Chains\nnarrative + steps + impact + suggested fix"]
+          </pre>
+        </div>
+        <div class="mermaid-wrap">
+          <div class="cap">Verify stage</div>
+          <pre class="mermaid">
+flowchart TD
+  AC["Candidate attack chain"] --> T{"type: race-condition?"}
+  T -- yes --> RS["LLM synthesizes a request spec\nendpoint, body, how to get a token"]
+  RS --> BOOT{"bootable local server?"}
+  BOOT -- yes --> SBX["Disposable sandbox\nnpm install, boot on a free port"]
+  SBX --> TOK["Get one real session / token"]
+  TOK --> FIRE["Fire 200 concurrent requests\nsame session, non-pooled client"]
+  FIRE --> CNT{"more than 1 succeeded?"}
+  CNT -- yes --> OK1["Verified: race confirmed"]
+  CNT -- no --> NO1["Not confirmed"]
+  BOOT -- no --> STA["Static Re-verifier\nskeptical LLM + resolved local imports"]
+  T -- no --> STA
+  STA --> CITE{"cites a missing lock / transaction?"}
+  CITE -- yes --> OK2["Verified"]
+  CITE -- no --> NO2["Killed as false positive"]
+          </pre>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>5</span></footer>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide" id="s6">
+      <div class="eyebrow"><span class="idx">06 / 11</span>Technical Implementation<span class="marks">25 marks</span></div>
+      <h1>Engineering for real repos, not just the demo</h1>
+      <p class="tagline">Two things exist specifically so a scan on a real company repo can't silently fail or crash mid-run.</p>
+      <div class="body">
+        <div class="grid2">
+          <div class="card">
+            <h3>Per-request token budgeting</h3>
+            <p><code>src/reason/findingsBudget.ts</code> caps and prioritizes findings by severity, spread across tools, before they enter a prompt — instead of dumping the full findings list and risking a provider's token limit. Hit for real during development: a monorepo with 113 raw findings blew past Groq's on-demand tier limit and crashed the run before this existed.</p>
+          </div>
+          <div class="card">
+            <h3>Graceful degradation</h3>
+            <p><code>src/pipeline.ts</code> — if Reason or Verify errors out (rate limit, provider hiccup, network blip), the pipeline logs it and continues with what it has (Sense findings alone, or unconfirmed chains) rather than crashing with zero output. A partial report beats no report.</p>
+          </div>
+          <div class="card">
+            <h3>Schema-validated LLM output</h3>
+            <p>Every structured LLM response (business-logic notes, attack chains, request specs) is parsed through a Zod schema before it touches the pipeline — a malformed model response fails loudly and locally instead of corrupting downstream stages.</p>
+          </div>
+          <div class="card">
+            <h3>Provider-agnostic reasoning layer</h3>
+            <p><code>src/reason/llm.ts</code> abstracts Groq-hosted Llama 3.3 70B (default, free tier) vs. fully local Ollama — a drop-in swap, no other code changes required. No OpenAI or Claude API dependency.</p>
+          </div>
+        </div>
+        <div class="twrap">
+        <table>
+          <thead><tr><th>Layer</th><th>Choice</th></tr></thead>
+          <tbody>
+            <tr><td>Language / runtime</td><td>TypeScript, Node.js ≥ 20</td></tr>
+            <tr><td>CLI</td><td>Commander (<code>scan</code>, <code>doctor</code>) + Ora spinners + Chalk</td></tr>
+            <tr><td>Scanners (Sense)</td><td>Semgrep, Gitleaks, OSV-Scanner</td></tr>
+            <tr><td>LLM (Reason / Verify)</td><td>Groq · Llama 3.3 70B, or local Ollama — provider-agnostic client</td></tr>
+            <tr><td>Validation</td><td>Zod schemas on every structured LLM response</td></tr>
+            <tr><td>GitHub integration</td><td>Octokit + simple-git, GitHub App or PAT auth</td></tr>
+            <tr><td>Reports</td><td>Self-contained HTML with inline Mermaid attack graphs + Markdown</td></tr>
+            <tr><td>Tests</td><td>Vitest (<code>src/__tests__</code>)</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>6</span></footer>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide" id="s7">
+      <div class="eyebrow"><span class="idx">07 / 11</span>Completeness &amp; Functionality<span class="marks">15 marks</span></div>
+      <h1>Proven end-to-end on a real vulnerable app</h1>
+      <p class="tagline">Not a mockup — this is an actual generated report from <code style="font-family:var(--mono); background:var(--surface-2); padding:1px 5px; border-radius:4px;">npm run demo</code> against the bundled <code style="font-family:var(--mono); background:var(--surface-2); padding:1px 5px; border-radius:4px;">fixtures/vulnerable-shop</code> app.</p>
+      <div class="body">
+        <div class="stat-row">
+          <div class="stat"><b>8</b><span>raw findings (Sense)</span></div>
+          <div class="stat"><b>3</b><span>candidate attack chains</span></div>
+          <div class="stat"><b>2</b><span>independently verified</span></div>
+        </div>
+        <div class="mermaid-wrap">
+          <div class="cap">The confirmed exploit — concurrent coupon redemption</div>
+          <pre class="mermaid">
+sequenceDiagram
+  participant Att as Attacker session
+  participant App as vulnerable-shop
+  Att->>App: POST /session/guest
+  App-->>Att: token (no rate limit)
+  loop 200 concurrent requests, same token
+    Att->>App: POST /coupon/redeem code=SAVE50
+  end
+  Note over App: check "couponUsed", await 50ms, then commit - no lock in between
+  App-->>Att: 200 x 200 (all treated as successful)
+          </pre>
+        </div>
+        <div class="report-card">
+          <div class="rc-head"><span class="pill danger">✅ VERIFIED</span><b>Concurrent coupon redemption</b></div>
+          <div class="rc-body">
+            <div><span class="k">Impact</span><p>Unbounded discount stacking leading to near-zero-cost checkout.</p></div>
+            <div><span class="k">Verification (dynamic-race-check)</span><p>Confirmed: fired 200 concurrent requests against <code>POST /coupon/redeem</code> reusing one session — all 200 were treated as successful when the business rule implies only 1 should be.</p></div>
+            <div><span class="k">Suggested fix</span><p>Add an idempotency key / check-and-set via a unique constraint or a DB transaction around the read-then-write.</p></div>
+          </div>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>7</span></footer>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide" id="s8">
+      <div class="eyebrow"><span class="idx">08 / 11</span>Presentation &amp; Demo<span class="marks">10 marks</span></div>
+      <h1>How we'll show it live</h1>
+      <p class="tagline">A single command, five narrated stages, then the report itself does the talking.</p>
+      <div class="body">
+        <div class="term">
+          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <pre>$ npm run demo
+
+<span class="stage">[connect]</span>  scanning local path fixtures/vulnerable-shop (no GitHub involved)
+<span class="stage">[sense]</span>    running Semgrep, Gitleaks, OSV-Scanner
+<span class="stage">[sense]</span>    8 raw findings
+<span class="stage">[reason]</span>   business-logic agent reading intent
+<span class="stage">[reason]</span>   2 business-logic notes, 3 candidate attack chain(s)
+<span class="stage">[verify]</span>   verifying 3 chain(s)
+<span class="stage">[verify]</span>   <span class="ok">2/3 confirmed</span>
+<span class="stage">[report]</span>   writing local report -> reports/demo-vulnerable-shop-*.html</pre>
+        </div>
+        <ul class="bullets">
+          <li><b>Step 1 —</b> run <code style="font-family:var(--mono);">npm run demo</code>, narrate each stage's live console output as it streams.</li>
+          <li><b>Step 2 —</b> open the generated HTML report and walk the two verified attack chains end to end, including the inline Mermaid attack-chain graph per story.</li>
+          <li><b>Step 3 —</b> show the raw findings table to contrast "8 scanner alerts" against "2 confirmed exploitable stories."</li>
+          <li><b>Step 4 —</b> highlight the one candidate that was <i>not</i> confirmed (an exposed Stripe key, marked "not confirmed — no source available to verify exposure") — proof the Verify stage doesn't rubber-stamp everything the Planner proposes.</li>
+        </ul>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>8</span></footer>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide" id="s9">
+      <div class="eyebrow"><span class="idx">09 / 11</span>Scalability &amp; Real-World Impact<span class="marks">10 marks</span></div>
+      <h1>Beyond the fixture</h1>
+      <div class="body">
+        <div class="grid2">
+          <div class="card"><h3>Real-world applicability</h3><p>Same command works against any public GitHub repo or local folder: <code>npm run dev -- scan owner/repo</code> — the bundled fixture demonstrates the loop, it isn't a hardcoded special case.</p></div>
+          <div class="card"><h3>Scalability, proven not aspirational</h3><p>Per-request token budgeting and graceful degradation were built because a real 113-finding monorepo scan hit a provider token limit during development — the fix is already shipped, not a roadmap item.</p></div>
+          <div class="card"><h3>Business potential</h3><p>Slots into DevSecOps triage as a noise-reduction + verification layer on top of scanners teams already run, rather than asking them to replace tooling. <code>--publish</code> can open a GitHub Issue and an auto-drafted fix PR for confirmed chains automatically.</p></div>
+          <div class="card"><h3>Long-term impact</h3><p>Hackathon scope proves one high-impact chain type (business-logic + token race conditions) end-to-end, deliberately over shallow coverage of many types — the harder, more valuable claim to prove first.</p></div>
+        </div>
+        <div class="card">
+          <h3>Roadmap</h3>
+          <p style="font-size:14.5px;">More chain types beyond business-logic races · CI/CD integration (run on every PR via the GitHub App webhook) · a team dashboard aggregating verified findings across repos.</p>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>9</span></footer>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide" id="s10">
+      <div class="eyebrow"><span class="idx">10 / 11</span>Documentation &amp; Submission Quality<span class="marks">5 marks</span></div>
+      <h1>Ready to review</h1>
+      <div class="body">
+        <div class="twrap">
+        <table>
+          <thead><tr><th>Path</th><th>Contents</th></tr></thead>
+          <tbody>
+            <tr><td><code>src/connect</code></td><td>GitHub App/PAT auth, repo parsing + shallow clone</td></tr>
+            <tr><td><code>src/sense</code></td><td>Semgrep / Gitleaks / OSV-Scanner wrappers, path normalization</td></tr>
+            <tr><td><code>src/reason</code></td><td>LLM client, Business-Logic agent, Planner agent, token budgeting</td></tr>
+            <tr><td><code>src/verify</code></td><td>Disposable sandbox, dynamic race verifier, static re-verifier</td></tr>
+            <tr><td><code>src/report</code></td><td>Markdown + HTML report, attack graphs, patch drafting, GitHub issue/PR</td></tr>
+            <tr><td><code>fixtures/vulnerable-shop</code></td><td>Deliberately vulnerable demo app (coupon race, secret, command injection)</td></tr>
+            <tr><td><code>scripts/</code></td><td><code>setup-tools.ts</code> (fetches gitleaks/osv-scanner), <code>demo.ts</code></td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="grid2">
+          <div class="card"><h3>Complete submission</h3><p>Git repo with source, fixture, scripts, and a Vitest test suite — nothing needed outside what's committed.</p></div>
+          <div class="card"><h3>Readable README, minimal setup friction</h3><p>Quickstart, config, architecture, and known limitations documented; exactly one required env var (<code>GROQ_API_KEY</code>) to run the whole pipeline.</p></div>
+        </div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>10</span></footer>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide" id="s11">
+      <div class="eyebrow"><span class="idx">11 / 11</span>Close</div>
+      <div class="body" style="justify-content:center; align-items:flex-start; gap:16px;">
+        <h1>A short list of confirmed attack stories — not 200 alerts.</h1>
+        <p class="tagline" style="font-size:17px;">SentinelAI — Connect → Sense → Reason → Verify → Report. Built for InnovaHack Chapter 1.</p>
+        <div class="kicker-row"><span class="pill safe">Thank you</span><span class="pill safe">Questions welcome</span></div>
+      </div>
+      <footer class="slidefoot"><span>SentinelAI</span><span>11</span></footer>
+    </section>
+
+  </main>
+</div>

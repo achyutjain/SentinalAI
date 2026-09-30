@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.sentinelai/
+*.log
+.workspace/
+reports/
+*.pem
